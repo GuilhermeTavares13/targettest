@@ -1,0 +1,232 @@
+unit Unit1;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls;
+
+type
+  TForm1 = class(TForm)
+    Label1: TLabel;
+    Label2: TLabel;
+    Label3: TLabel;
+    Edit1: TEdit;
+    Button1: TButton;
+    Label4: TLabel;
+    Label5: TLabel;
+    Label6: TLabel;
+    Label7: TLabel;
+    Label8: TLabel;
+    Label9: TLabel;
+    Label10: TLabel;
+    Label11: TLabel;
+    Label12: TLabel;
+    Label13: TLabel;
+    Label14: TLabel;
+    Label15: TLabel;
+    Label16: TLabel;
+    Label17: TLabel;
+    Label18: TLabel;
+    Edit2: TEdit;
+    Button2: TButton;
+    Label19: TLabel;
+    procedure FormCreate(Sender: TObject);
+    procedure Button1Click(Sender: TObject);
+    procedure Button2Click(Sender: TObject);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+    function Exercise1 : integer;
+    function fibonacci : string;
+    procedure Exercise3;
+    procedure Exercise4;
+    procedure Exercise5;
+  end;
+
+var
+  Form1: TForm1;
+
+implementation
+
+uses
+   System.JSON;
+
+{$R *.dfm}
+
+{ TForm1 }
+
+procedure TForm1.Button1Click(Sender: TObject);
+begin
+  Label4.Caption := fibonacci;
+end;
+
+procedure TForm1.Button2Click(Sender: TObject);
+begin
+  Exercise5;
+end;
+
+function TForm1.Exercise1: integer;
+var
+  Indice, Soma, K : integer;
+begin
+  K := 0;
+  Soma := 0;
+  Indice := 13;
+  while K < Indice do
+  begin
+    K := K + 1;
+    Soma := Soma + K;
+  end;
+
+  Result := Soma;
+end;
+
+procedure TForm1.Exercise3;
+
+  function LerJSONDeArquivo(const FileName: string): string;
+  var
+    StringList: TStringList;
+  begin
+    StringList := TStringList.Create;
+    try
+      StringList.LoadFromFile(FileName);
+      Result := StringList.Text;
+    finally
+      StringList.Free;
+    end;
+  end;
+
+var
+  JSONStr: string;
+  JSONArray: TJSONArray;
+  JSONObject: TJSONObject;
+  I, DiasUteis, DiasMaiorMedia: Integer;
+  Maior, Menor, Soma, Media : extended;
+begin
+  JSONStr := LerJSONDeArquivo('C:\Users\ACER\Desktop\targettest\dados.json');
+
+  JSONArray := TJSONObject.ParseJSONValue(JSONStr) as TJSONArray;
+
+  try
+    DiasUteis := 0;
+    Soma := 0;
+    Maior := 0;
+    Menor := 0;
+    Media := 0;
+    for I := 0 to JSONArray.Count - 1 do
+    begin
+      JSONObject := JSONArray.Items[I] as TJSONObject;
+
+      if (JSONObject.GetValue<Double>('valor') <> 0.0) then
+        Inc(DiasUteis);
+
+      Soma := Soma + JSONObject.GetValue<Double>('valor');
+
+      if Maior = 0 then
+        Maior := JSONObject.GetValue<Double>('valor')
+      else
+        if Maior < JSONObject.GetValue<Double>('valor') then
+          Maior := JSONObject.GetValue<Double>('valor');
+
+      if JSONObject.GetValue<Double>('valor') > 0 then
+      begin
+        if Menor = 0 then
+          Menor := JSONObject.GetValue<Double>('valor')
+        else
+          if Menor > JSONObject.GetValue<Double>('valor') then
+            Menor := JSONObject.GetValue<Double>('valor');
+      end;
+    end;
+    Media := Soma / DiasUteis;
+
+    for I := 0 to JSONArray.Count - 1 do
+    begin
+      JSONObject := JSONArray.Items[I] as TJSONObject;
+       if JSONObject.GetValue<Double>('valor') > Media then
+        DiasMaiorMedia := DiasMaiorMedia + 1;
+    end;
+
+
+    Label6.Caption := 'Dias Úteis: ' + FormatFloat('#,##0.00',DiasUteis);
+    Label7.Caption := 'Média: ' + FormatFloat('#,##0.00',Media);
+    Label8.Caption := 'Soma: ' + FormatFloat('#,##0.00',Soma);
+    Label9.Caption := 'Maior: ' + FormatFloat('#,##0.00',Maior);
+    Label10.Caption := 'Menor: ' + FormatFloat('#,##0.00',Menor);
+    Label11.Caption := 'Dias Maior que a média: ' + IntToStr(DiasMaiorMedia);
+
+  finally
+    JSONArray.Free;
+  end;
+end;
+
+procedure TForm1.Exercise4;
+var
+  Soma,mSp,mRj,mMg,mEs,mOutros : Extended;
+begin
+  mSp := 67836.43;
+  mRj := 36678.66;
+  mMg := 29229.88;
+  mEs := 27165.48;
+  mOutros := 19849.53;
+
+  Soma := mSp + mRj + mMg + mEs + mOutros;
+
+  Label13.Caption := 'SP: ' + FormatFloat('#,##0.00',mSp / soma * 100) + '%';
+  Label14.Caption := 'RJ: ' + FormatFloat('#,##0.00',mRj / soma * 100) + '%';
+  Label15.Caption := 'MG: ' + FormatFloat('#,##0.00',mMg / soma * 100) + '%';
+  Label16.Caption := 'ES: ' + FormatFloat('#,##0.00',mEs / soma * 100) + '%';
+  Label17.Caption := 'Outros: ' + FormatFloat('#,##0.00',mOutros / soma * 100) + '%';
+end;
+
+procedure TForm1.Exercise5;
+var
+  I : Integer;
+  StrResult : String;
+begin
+  I := 0;
+  while I < Length(Edit2.Text)  do
+  begin
+    StrResult := StrResult + Edit2.Text[I];
+    I := I - 1
+  end;
+  Label19.Caption := StrResult;
+end;
+
+function TForm1.fibonacci : String;
+var
+  n1, n2, n3, n4, i: Integer;
+  fPertence: Boolean;
+begin
+  n1 := 0;
+  n2 := 1;
+  fPertence := False;
+  n4 := StrToInt(Edit1.Text);
+
+  for i := 1 to n4 do
+  begin
+    n3 := n1 + n2;
+    n1 := n2;
+    n2 := n3;
+
+    if n3 = n4 then
+    begin
+      fPertence := True;
+      Break;
+    end;
+  end;
+  if fPertence then
+    Result := IntToStr(n4) + ' pertence à sequência de Fibonacci.'
+  else
+    Result := IntToStr(n4) + ' não pertence à sequência de Fibonacci.'
+end;
+
+procedure TForm1.FormCreate(Sender: TObject);
+begin
+  Label2.Caption := IntToStr(Exercise1);
+  Exercise3;
+  Exercise4;
+end;
+
+end.

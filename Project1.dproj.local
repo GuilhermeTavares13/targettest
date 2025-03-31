@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BorlandProject>
+	<Transactions>
+    <Transaction>2025/01/12 16:02:25.000.252,=C:\Users\ACER\OneDrive\Documentos\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>2025/01/12 17:16:19.000.021,=C:\Users\ACER\OneDrive\Documentos\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>2025/03/30 21:06:33.501,=C:\Users\ACER\OneDrive\Documentos\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>2025/03/30 21:06:48.916,C:\Users\ACER\Desktop\targettest\Unit1.pas=C:\Users\ACER\OneDrive\Documentos\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>2025/03/30 21:06:48.916,C:\Users\ACER\Desktop\targettest\Unit1.dfm=C:\Users\ACER\OneDrive\Documentos\Embarcadero\Studio\Projects\Unit1.dfm</Transaction>
+    <Transaction>2025/03/30 21:52:28.349,C:\Users\ACER\Desktop\targettest\Project1.dproj=C:\Users\ACER\OneDrive\Documentos\Embarcadero\Studio\Projects\Project1.dproj</Transaction>
+  </Transactions>
+</BorlandProject>
